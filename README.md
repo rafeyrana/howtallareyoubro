@@ -7,5 +7,5 @@
 ## Features
 
 - Upload three images of a person standing in different poses.
-- Estimate the height of the person in inches.
+- Estimate the height of the person in feet/ inches accurate up to +-2 insches.
 - Use common objects in the images as reference points for height estimation.
