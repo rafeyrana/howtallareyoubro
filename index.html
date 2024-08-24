@@ -3,71 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Height Estimator</title>
+    <title>How Tall Is Bro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
+        /* Global Styles */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
+            background: linear-gradient(to right, #673AB7, #9575CD);
+            color: #333;
+        }
+
+        /* Navigation Bar Styles */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #9575CD;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #E1BEE7;
+        }
+
+        /* Main Content Styles */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 80px);
+            padding: 2rem;
+        }
+
+        .card {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #673AB7;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #7B1FA2;
+            margin-bottom: 1.5rem;
+        }
+
+        .image-uploader {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .image-preview {
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
+            margin-bottom: 1rem;
         }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
+
+        .image-preview img {
+            max-width: 100px;
+            margin: 0 10px;
+            border-radius: 5px;
         }
-        input[type="file"] {
-            margin: 10px 0;
-        }
+
         button {
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
+            padding: 12px 24px;
+            background-color: #673AB7;
+            color: #fff;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s;
         }
+
         button:hover {
-            background-color: #0056b3;
+            background-color: #512DA8;
         }
+
         #response {
-            margin-top: 20px;
-            font-size: 18px;
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
             color: #333;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #512DA8;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            nav {
+                padding: 0.8rem;
+            }
+
+            nav a {
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            .image-preview img {
+                max-width: 80px;
+                margin: 0 8px;
+            }
+
+            button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            #response {
+                font-size: 1.1rem;
+            }
+
+            footer {
+                padding: 0.8rem;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
 <body>
+    <nav>
+        <a href="#">Home</a>
+        <h1>How Tall Is Bro</h1>
+        <a href="#">About</a>
+    </nav>
+
     <div class="container">
-        <h1>Height Estimator</h1>
-        <input type="file" id="image1" accept="image/*" required>
-        <input type="file" id="image2" accept="image/*" required>
-        <input type="file" id="image3" accept="image/*" required>
-        <button onclick="uploadImages()">Estimate Height</button>
-        <div id="response"></div>
+        <div class="card">
+            <h2>Think that bro is height fishing you? Upload 3 pics to confirm!!</h2>
+            <div class="image-uploader">
+                <input type="file" id="images" accept="image/*" multiple required>
+                <div class="image-preview">
+                    <img id="preview1" alt="Image 1 Preview" style="display: none;">
+                    <img id="preview2" alt="Image 2 Preview" style="display: none;">
+                    <img id="preview3" alt="Image 3 Preview" style="display: none;">
+                </div>
+            </div>
+            <button onclick="uploadImages()">Guess My Height!</button>
+            <div id="response"></div>
+        </div>
     </div>
+
+    <footer>
+        <p>&copy; 2024 How Tall Is Bro. All rights reserved.</p>
+    </footer>
 
     <script>
         async function uploadImages() {
-            const image1 = document.getElementById('image1').files[0];
-            const image2 = document.getElementById('image2').files[0];
-            const image3 = document.getElementById('image3').files[0];
+            const images = document.getElementById('images').files;
 
-            if (!image1 || !image2 || !image3) {
-                alert('Please select all three images.');
+            if (images.length !== 3) {
+                alert('Please select three images. We need to make sure our AI is seeing things correctly!');
                 return;
             }
 
             const formData = new FormData();
-            formData.append('images', image1);
-            formData.append('images', image2);
-            formData.append('images', image3);
+            for (let i = 0; i < images.length; i++) {
+                formData.append('images', images[i]);
+            }
 
             try {
                 const response = await fetch('http://127.0.0.1:8000/estimate-height/', {
@@ -80,10 +224,16 @@
                 }
 
                 const data = await response.json();
-                document.getElementById('response').innerText = `Estimated Height: ${Math.floor(data.estimated_height / 12)}'${data.estimated_height%12} F'I`;
+                document.getElementById('response').innerText = `Bro is literally ${Math.floor(data.estimated_height / 12)}'${data.estimated_height % 12}`;
+
+                // Show image previews
+                for (let i = 0; i < images.length; i++) {
+                    document.getElementById(`preview${i+1}`).src = URL.createObjectURL(images[i]);
+                    document.getElementById(`preview${i+1}`).style.display = 'inline-block';
+                }
             } catch (error) {
                 console.error('Error:', error);
-                document.getElementById('response').innerText = 'Error estimating height. Please try again.';
+                document.getElementById('response').innerText = 'Oops, looks like our AI got a little confused. Please try again and we\'ll do our best to guess your height!';
             }
         }
     </script>

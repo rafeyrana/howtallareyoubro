@@ -44,7 +44,7 @@ def encode_image(image_file: UploadFile) -> str:
 def prepare_payload(encoded_images: List[str]) -> Dict:
     """Prepares the payload for the API request."""
     return {
-        "model": "gpt-4o",
+        "model": "gpt-4-turbo",
         "messages": [
             {
                 "role": "user",
@@ -111,8 +111,9 @@ async def estimate_height(images: List[UploadFile] = File(...)):
     encoded_images = [encode_image(image) for image in images]
     print(f"encoded_images: {len(encoded_images)}")
     payload = prepare_payload(encoded_images)
+    print("Payload Prepared")
     response = send_request_to_api(payload)
-    print(f"model response: {response}")
+    print(f"Model Response: {response}")
     final_res = response['choices'][0]['message']['content']
     logger.info(f"Assistant Response: {final_res}")
     match = re.search(r'\b(\d+)\b\s*', final_res)
